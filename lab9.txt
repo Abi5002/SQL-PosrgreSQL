@@ -1,0 +1,61 @@
+-- 1
+SELECT lname
+FROM Students
+JOIN Groups using (group_id)
+JOIN Majors using (major_id)
+WHERE Majors.major_name = 'CSSE';  
+-- 2
+select stud_id
+from students
+join progress using (stud_id)
+where final > (select avg(final) from progress);
+-- 3
+select lname
+from teachers
+join departments using (dep_id)
+where dep_name = 'CSSE&T' and dep_name = 'IS'
+-- 4
+select lname, exam
+from students
+join progress using (stud_id)
+where exam > 50
+-- 5
+select cred_num
+from credits
+where lect_hours > any (
+	select lab_hours
+	from credits
+);
+-- 6
+select cred_num
+from credits
+where lect_hours > all (
+	select lab_hours
+	from credits
+);
+-- 7
+select *
+from (select total_hours 
+	  from credits 
+	 where total_hours > 100 and total_hours%2 = 0) as t1; 
+-- 8
+INSERT INTO students (stud_id, fname, lname, bdate, phnum, email, group_id) VALUES
+(9, 
+ (select fname from teachers limit 1), 
+ (select lname from teachers limit 1), 
+ NULL, 
+ 1234567, 
+ 'OZ@gmail.com', 
+ 8);
+-- 9
+DELETE FROM Students
+WHERE group_id not in (SELECT group_id from groups);
+-- 10
+UPDATE Students
+SET email = 'olga@gmail.com'
+WHERE email = 'example@gmail.com';
+
+
+
+
+

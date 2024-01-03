@@ -1,0 +1,62 @@
+-- DDL - Data Definiton Language
+
+-- create table table_name
+
+-- alter table table_name  | modify table and table's datas
+	-- add column column_name data_type 
+	-- rename to new_table_name
+	-- rename old_column_name to new_column_name 
+	-- alter column column_name set data type data_type
+	-- drop column column_name
+	
+-- drop table table_name | deleta whole table
+-- truncate table table_name  | delete all rows in table
+
+
+create table student (
+	student_id serial,
+	first_name varchar(50),
+	last_name varchar(50),
+	bdate date,
+	phone varchar(50)
+);
+
+create table department (
+	department_id serial,
+	department_name varchar,
+	dean varchar(50)
+);
+
+alter table student
+add column middle_name varchar,
+add column rating float,
+add column enrolled date;
+
+alter table student
+drop column middle_name;
+
+alter table department
+rename to dept;
+
+alter table dept
+rename department_name to dept_name; 
+
+alter table student
+alter column first_name set data type varchar(64),
+alter column last_name set data type varchar(64),
+alter column phone set data type varchar(255);
+ 
+create table faculty (
+	faculty_id serial primary key,
+	faculty_name varchar(50)
+);
+
+insert into faculty (faculty_name) values 
+('CSSE'), 
+('PE'), 
+('CS');      
+
+truncate table faculty restart identity
+
+select * from faculty 
+  

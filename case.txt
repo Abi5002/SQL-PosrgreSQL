@@ -1,0 +1,57 @@
+-- Выражение CASE
+
+
+-- Пример №1
+
+select contact_name, city, 
+case when region is NULL then 'not defined' else region end
+from customers
+
+-- Пример №2
+
+/*
+select contact_name, country, 
+case when country in ('Argentina','Brazil') then 'South America'
+     when country = 'Canada' then 'North America'
+	 when country in ('Spain', 'Pordugal') then 'Europe' end as continent
+from customers
+*/
+
+/*
+select contact_name, country, 
+case when country in ('Argentina','Brazil') then 'South America'
+     when country = 'Canada' then 'North America'
+	 else 'Europe' end as continent
+from customers
+*/
+
+select continent, count(contact_name)
+from
+(
+select contact_name, country, 
+case when country in ('Argentina','Brazil','Venezuela') then 'South America'
+     when country in ('Canada', 'USA', 'Mexico') then 'North America'
+	 else 'Europe' end as continent
+from customers
+) as table1
+group by continent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

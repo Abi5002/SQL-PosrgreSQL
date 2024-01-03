@@ -1,0 +1,55 @@
+-- count
+select *
+from customers
+where country = 'USA'
+
+select count(country)
+from customers where country = 'USA'
+
+-- distinct
+select count(distinct country) AS "Unique countries" 
+from Customers
+
+-- агрегирующие функции
+-- sum()
+-- max()
+-- min()
+-- avg()
+
+
+-- example 1 и алиасы
+select min(unit_price) as min_price, max(unit_price),
+avg(unit_price), sum(unit_price), count(unit_price)
+from products
+
+-- example 2
+select count(order_date) as OrderDateBetween from orders 
+where order_date between '1997-01-01' and '1997-01-31'
+
+-- min max и датами
+select min(order_date) as earlier, max(order_date) as the_latest 
+from orders
+
+
+
+
+
+-- 1
+select min(unit_price) as min_price,
+max(unit_price) as max_price,
+round(avg(unit_price)) as avg_price
+from products where category_id = 3
+
+select category_id from products
+
+
+-- 2
+select count(distinct contact_title) as unique_majers
+from customers
+where country = 'UK'
+
+
+-- 3
+select sum(unit_price)
+from products
+where category_id between 4 and 5

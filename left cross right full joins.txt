@@ -1,0 +1,28 @@
+-- left join
+select count(customer_id) from customers
+
+select count(distinct customer_id)
+from orders
+
+select t1.customer_id, t1.contact_name, t2.order_id, t2.customer_id
+from customers as t1 left join orders as t2 on t1.customer_id = t2.customer_id
+where t2.order_id is NULL
+order by t2.order_id
+
+
+select count(*)
+from customers as t1 left join orders as t2 on t1.customer_id = t2.customer_id
+where t2.order_id is NULL
+
+
+-- cross join
+select * from categories cross join Products
+
+
+-- задачи на left join
+select * from orders
+select * from products
+
+select contact_name, city
+from customers as t1 left join orders as t2 on t1.customer_id = t2.customer_id
+where order_id is NULL

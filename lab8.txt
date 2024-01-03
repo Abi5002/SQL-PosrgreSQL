@@ -1,0 +1,60 @@
+-- 1
+select count(fname) from students;
+-- 2
+select max(lab_hours), min(lab_hours), round(avg(lab_hours)), sum(lab_hours) from credits;
+-- 3
+select lect_hours, sum(lab_hours) as total_sum_of_practices from credits
+group by lect_hours;
+-- 4
+select lect_hours, sum(lab_hours) as total_sum_of_prictices 
+from credits
+group by lect_hours
+having sum(lab_hours) > 100;
+-- 5
+select lect_hours, sum(lab_hours) as total_sum_of_prictices 
+from credits
+group by lect_hours
+having sum(lab_hours) > 100
+order by lect_hours desc;
+-- 6
+SELECT group_name, subj_name, room, sch_time, day_of_week, class_type, lname
+FROM Schedule
+JOIN Ed_process USING (proc_id)
+JOIN Groups USING (group_id)
+JOIN Subjects USING (subj_id)
+JOIN Teachers USING (teach_id)
+JOIN Classes USING (class_id);
+-- 7
+insert into progress values
+(4, 2, 4, 80, 70, 75, 100, 75),
+(5, 3, 5, 81, 62, 72, 99, 78),
+(6, 3, 6, 12, 42, 36, 55, 33);
+insert into ed_process values
+(7, 7, 1, 4),
+(8, 8, 1, 4),
+(9, 8, 1, 4);
+select fname || ' ' || lname as "Full name", subj_name, rk1, rk2, rk_avg, exam, final
+from progress as t1 join students as t2 on t1.stud_id = t2.stud_id 
+	 join subjects as t3 on t1.proc_id = t3.subj_id;
+-- 8
+select fname || ' ' || lname as "Full name", subj_name, rk1, rk2, rk_avg, exam, final
+from progress as t1 join students as t2 on t1.stud_id = t2.stud_id 
+	 join subjects as t3 on t1.proc_id = t3.subj_id
+where final between 75 and 90;
+-- 9
+select group_name, subj_name, round(avg(final))
+from ed_process as t1 join groups as t2 on t1.group_id = t2.group_id
+	 join subjects as t3 on t3.subj_id = t1.subj_id
+	 join progress as t4 on t4.proc_id = t1.proc_id
+group by group_name, subj_name;
+-- 10
+select fname || ' ' || lname as "Full name",  round(avg(final)) as gpa
+from progress as t1 join students as t2 on t1.stud_id = t2.stud_id
+group by "Full name"
+having round(avg(final)) >= 90
+order by "Full name";
+
+
+
+
+

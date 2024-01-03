@@ -1,0 +1,44 @@
+CREATE TABLE publisher (
+    publisher_id INT PRIMARY KEY,
+    publisher_name VARCHAR(128) NOT NULL,
+    address TEXT
+);
+
+CREATE TABLE book (
+    book_id INT,
+    title TEXT NOT NULL,
+    isbn VARCHAR(32) NOT NULL,
+    publisher_id INT,  
+
+    CONSTRAINT PK_book_book_id PRIMARY KEY (book_id),
+    CONSTRAINT FK_book_publisher FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id)
+);
+
+
+INSERT INTO publisher (publisher_id, publisher_name, address)
+VALUES
+    (1, 'Publisher A', '123 Main Street, City A'),
+    (2, 'Publisher B', '456 Oak Avenue, City B'),
+    (3, 'Publisher C', '789 Pine Road, City C'),
+    (4, 'Publisher D', '101 Maple Lane, City D'),
+    (5, 'Publisher E', '202 Cedar Drive, City E');
+	
+	
+INSERT INTO book (book_id, title, isbn, publisher_id)
+VALUES
+    (101, 'Book 1', '978-1-234567-89-0', 1),
+    (102, 'Book 2', '978-2-345678-90-1', 1),
+    (103, 'Book 3', '978-3-456789-01-2', 1),
+    (104, 'Book 4', '978-4-567890-12-3', 4),
+    (105, 'Book 5', '978-5-678901-23-4', 5);
+	
+
+truncate table book;
+drop table book;
+-- ALTER TABLE book
+-- ADD FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id);
+
+select b.publisher_id, concat(count(*), ' ', 'rows') from
+book b join publisher p on b.publisher_id = p.publisher_id
+group by b.publisher_id
+order by count(*) desc;

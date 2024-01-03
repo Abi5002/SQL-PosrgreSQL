@@ -1,0 +1,59 @@
+-- 1
+select count(*) as all_countries
+from
+(select country, count(*)
+from customers
+group by country
+having count(*)>1) as table1;
+
+-- 2
+select count(*) as all_orders
+from
+(select customer_id, count(*)
+from orders
+group by customer_id
+having count(*) > 10) as table2;
+
+-- 3
+select sum(quantity*unit_price*(1-discount))
+from order_details
+where product_id in (select product_id
+					 from products
+					 where category_id = 1);
+					 
+
+-- 1
+select count(*) as array_of_orders from order_details
+where product_id = (select product_id
+					 from products
+					 where product_name = 'Chocolade');
+
+-- 2
+select floor(sum(t3.quantity*t3.unit_price*(1-t3.discount))) as total_sum
+from products as t1 inner join categories as t2 on t1.category_id = t2.category_id
+			        inner join order_details as t3 on t1.product_id = t3.product_id
+group by category_name
+having category_name = 'Confections';
+
+-- 3
+select max(total_sum) as maximum
+from 
+(select t3.product_id, floor(sum(t3.quantity*t3.unit_price*(1-t3.discount))) as total_sum 
+from products as t1 inner join categories as t2 on t1.category_id = t2.category_id
+			        inner join order_details as t3 on t1.product_id = t3.product_id
+group by category_name, t3.product_id) as table4;
+
+
+-- 4
+select first_name, last_name
+from orders as t1 inner join employees as t2 on t1.employee_id = t2.employee_id
+				  inner join customers as t3 on t1.customer_id = t3.customer_id
+where order_date = '1998-04-29' and contact_name = 'Simon Crowther'
+
+select count(*) as ships_and_citites
+from
+(select ship_city, count(*) 
+from orders
+where order_date between '1997-01-01' and '1997-12-31'
+group by ship_city
+having count(*)>5) as shipsss;

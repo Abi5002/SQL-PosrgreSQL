@@ -1,0 +1,24 @@
+-- логичесике ограничение
+-- drop table if exists book;
+
+create table book (
+	book_id int primary key,
+	title varchar not null,
+	isbn varchar(32) not null,
+	publisher_id int
+);
+
+alter table book
+add column price decimal check (price > 0) and (price < 1000);
+
+insert into book values
+(1, 'The Great Gatsby', '978-0-7432-7356-5', 1, 1),
+(2, 'To Kill a Mockingbird', '978-0-06-112008-4', 2, 667),
+(3, '1984', '978-0-452-28423-4', 3, 228),
+(4, 'The Catcher in the Rye', '978-0-316-76948-0', 1, 69),
+(5, 'Pride and Prejudice', '978-0-19-953556-9', 2, 141);
+
+select * from book
+
+truncate table book
+

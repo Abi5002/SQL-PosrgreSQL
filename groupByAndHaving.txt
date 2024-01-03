@@ -1,0 +1,41 @@
+/*
+select Country, count(*)
+from Customers
+group by Country
+having count(*)>5
+order by count(*)
+
+select Country, count(*)
+from Customers
+group by Country
+having count(*)>5
+order by Country desc
+*/
+select customer_id, contact_name, contact_title, country
+from customers
+where contact_title = 'Marketing Manager' and country = 'USA'
+
+select contact_name, country, count(*) 
+from customers
+where contact_title = 'Marketing Manager'
+group by country
+order by count(country)
+
+
+
+
+
+select * from order_details
+
+select unit_price*units_in_stock from products; 
+
+select order_id, round(quantity*unit_price*(1-discount), 2)
+from order_details, products
+where order_id = 10251
+order by quantity*unit_price*(1-discount) 
+
+select order_id, round(sum(quantity*unit_price*(1-discount)),2) as amount_cost
+from order_details, products
+group by order_id
+
+

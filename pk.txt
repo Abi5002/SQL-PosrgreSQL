@@ -1,0 +1,27 @@
+-- pk = unique not null сильной такой разницы нет
+-- pk только один столбец во всей таблице
+-- unique not null / unique мы можем присваивать нескольким столбцам
+
+create table chair (
+	chair_id serial unique not null,
+	chair_name varchar,
+	dean varchar 
+	
+	
+);
+
+insert into chair 
+values (1, 'name', 'dean');
+
+select * from chair; 
+
+select constraint_name
+from information_schema.key_column_usage
+where table_name = 'chair'
+	and table_schema = 'public'
+	and column_name = 'chair_id'
+	
+alter table chair
+drop constraint chair_chair_id_key
+
+select * from chair

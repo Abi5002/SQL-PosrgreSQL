@@ -1,0 +1,66 @@
+-- inner join
+-- ошибка вывода общего столбца
+-- алиасы
+-- from таблицa_1 inner join таблицa_2 on название_1.FK = название_2.РК
+select products.category_id, category_name, product_name
+from products inner join categories on products.category_id = categories.category_id   
+where category_name = 'Seafood';
+
+
+select products.category_id, category_name, product_name
+from products as t1 inner join categories as t2 on t1.category_id = t2.category_id   
+where category_name = 'Seafood'
+
+select * 
+from categories
+
+
+-- доп. примеры
+
+-- Пример №1
+
+select * 
+from customers
+
+select t2.city, count(*), count(distinct t2.customer_id)
+from orders as t1 inner join customers as t2 on t1.customer_id = t2.customer_id
+where t2.country = 'Germany'
+group by city
+order by count(*) desc
+
+-- Пример №2
+
+select * 
+from products
+
+select t2.product_name, ceil(sum(t1.unit_price*t1.quantity*(1-discount)))
+from order_details as t1 inner join products as t2 on t1.product_id = t2.product_id
+where category_id = 1
+group by t2.product_name
+
+
+-- inner join три и более таблицы
+
+-- выведите имена клиентов, чьи заказы оформил сотрудник Robert King
+
+select * 
+from customers
+
+select * 
+from employess
+
+select * 
+from orders
+
+
+
+
+
+
+
+
+
+
+
+
+

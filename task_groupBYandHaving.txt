@@ -1,0 +1,25 @@
+-- 1
+select city, count(*) as amount_of_clients from customers
+group by city
+having count(*)>4;
+
+-- 2
+select category_id, floor(avg(unit_price)) from products
+group by category_id
+order by avg(unit_price) desc;
+
+-- 3
+select order_date, count(*) from orders
+where order_date between '1998-03-01' and '1998-03-31'
+group by order_date 
+having count(*) = 4
+order by order_date;
+
+-- 4
+select order_id, floor(sum(unit_price*quantity*(1-discount))) as cost_of_all
+from order_details
+group by order_id
+having sum(unit_price*quantity*(1-discount)) > 10000;
+
+
+ 

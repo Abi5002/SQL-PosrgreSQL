@@ -1,0 +1,29 @@
+select distinct count(contact_name) as clinents_of_Robert_King
+from orders as t1 inner join employees as t2 on t1.employee_id = t2.employee_id
+				  inner join customers as t3 on t1.customer_id = t3.customer_id
+where first_name = 'Robert' and last_name = 'King';
+
+
+-- Решение задач
+
+
+-- №1
+select count(*) as amount_of_orders 
+from orders as t1 inner join employees as t2 on t1.employee_id = t2.employee_id
+where t2.first_name = 'Andrew' and t2.last_name = 'Fuller';
+
+-- №2
+select floor(sum(t2.quantity*t2.unit_price*(1-t2.discount)))
+from orders as t1 inner join order_details as t2 on t1.order_id = t2.order_id
+where order_date between '1997-01-01' and '1997-12-31';
+
+-- №3
+select category_name, count(*)
+from products as t1 inner join categories as t2 on t1.category_id = t2.category_id 
+group by category_name 
+order by count(*) desc
+
+
+
+
+

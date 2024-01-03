@@ -1,0 +1,47 @@
+-- union, union ALL,
+-- уникальные значение если union
+-- если надо все, то union all
+
+select title
+from employees
+union
+select contact_title
+from customers;
+
+
+select title
+from employees
+union all
+select contact_title
+from customers
+
+
+-- except intersect 
+-- есть в первой и нет во второй
+select title
+from employees
+except
+select contact_title
+from customers
+
+-- есть и там и здесь
+select title
+from employees
+intersect
+select contact_title
+from customers
+
+
+-- выполнение запросов
+
+select country, title
+from employees
+union all
+select country, Contact_title
+from customers
+
+select country, title
+from employees
+union 
+select country, Contact_title
+from customers

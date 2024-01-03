@@ -1,0 +1,101 @@
+-- 1
+SELECT * FROM Customers;
+-- 2
+SELECT CardID AS CardIdentificator, CardNumber
+FROM CustomerCards;
+-- 3
+SELECT * FROM Customers
+WHERE RegistrationDate < '2023-02-01';
+-- 4
+SELECT ProductName, Price
+FROM Products
+WHERE Price > 2;
+-- 5
+SELECT * FROM Orders
+WHERE TotalAmount BETWEEN 10 AND 20;
+-- 6
+SELECT FirstName, LastName, Email
+FROM Customers
+WHERE CustomerID IN (
+SELECT CustomerID 
+FROM CustomerCards
+);
+-- 7
+SELECT DISTINCT Category
+FROM Products;
+-- 8
+SELECT * FROM Employees
+WHERE HireDate LIKE '2022%';
+-- 9
+SELECT * FROM Employees
+WHERE Salary > 40000;
+-- 10
+SELECT AVG(StockQuantity) AS AverageStockQuantity
+FROM Products;
+-- 11
+SELECT ProductName, SUM(s.QuantitySold)
+FROM Products as p LEFT JOIN Sales as s ON p.ProductID=s.ProductID
+GROUP BY p.ProductName;
+-- 12
+SELECT c.CustomerID, FirstName, LastName
+FROM Customers as c
+LEFT JOIN Orders as o ON c.CustomerID = o.CustomerID
+WHERE o.OrderID IS NULL;
+-- 13
+SELECT * FROM Products
+WHERE Category IN ('Dairy', 'Bakery');
+-- 14
+SELECT ProductID, SUM(QuantitySold) AS TotalQuantitySold
+FROM Sales
+GROUP BY ProductID;
+-- 15
+SELECT e.FirstName, e.LastName
+FROM Employees as e`
+JOIN Departments as d ON e.EmployeeID = d.ManagerID
+WHERE d.ManagerID IS NOT NULL;
+-- 16
+SELECT p.ProductID, p.ProductName
+FROM Products as p
+LEFT JOIN SupplierProducts as sp ON p.ProductID = sp.ProductID
+WHERE sp.SupplierProductID IS NULL;
+-- 17
+SELECT c.CustomerID, FirstName, LastName, SUM(TotalAmount) AS TotalOrderAmount
+FROM Customers as c
+LEFT JOIN Orders as o ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, FirstName, LastName
+ORDER BY TotalOrderAmount DESC;
+-- 18
+SELECT c.FirstName, c.LastName, cc.CardNumber
+FROM Customers as c
+JOIN CustomerCards as cc ON c.CustomerID = cc.CustomerID;
+-- 19
+SELECT c.CustomerID, FirstName, LastName, COUNT(o.OrderID) AS NumberOfOrders
+FROM Customers as c
+LEFT JOIN Orders as o ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, FirstName, LastName;
+-- 20
+SELECT * FROM Products
+WHERE LOWER(Description) LIKE '%fresh%';
+-- 21
+SELECT AVG(Salary) AS AverageSalary
+FROM Employees;
+-- 22
+SELECT e.FirstName, e.LastName
+FROM Employees as e
+JOIN EmployeeDepartments as ee ON e.EmployeeID = ee.EmployeeID
+JOIN Departments as d ON ee.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'Bakery Department';
+-- 23
+SELECT * FROM Products
+WHERE ExpiryDate IS NULL OR ExpiryDate BETWEEN '2023-01-01' AND '2023-12-31';
+-- 24
+SELECT c.FirstName, c.LastName, o.OrderID, o.Status
+FROM Customers as c
+JOIN Orders as o ON c.CustomerID = o.CustomerID
+WHERE o.Status = 'Shipped';
+-- 25
+SELECT p.ProductID, ProductName, COALESCE(SUM(QuantitySold), 0)
+FROM Products as p
+JOIN Sales as s ON p.ProductID = s.ProductID
+GROUP BY p.ProductID, ProductName
+HAVING COALESCE(SUM(QuantitySold), 0) > 5;
